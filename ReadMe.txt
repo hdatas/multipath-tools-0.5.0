@@ -128,3 +128,8 @@ Failover Test >>>>>
 	2.	if you want to switch to the other path( the slave in the shard), login the slave target and then logout the master. 
 	3.	By the above sequence, dynamic failover can be managed.   
 
+Recofigure Option >>>
+
+	if you want to update the latest configuration file that has been modifie on the condition of running multipathd daemon, you just execute  ./multipathd -r. that will update all of configuration file changes.    
+
+
