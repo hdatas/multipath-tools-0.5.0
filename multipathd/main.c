@@ -1960,7 +1960,7 @@ main (int argc, char *argv[])
 	if (!conf)
 		exit(1);
 
-	while ((arg = getopt(argc, argv, ":dsv:k::")) != EOF ) {
+	while ((arg = getopt(argc, argv, ":dsv:kr::")) != EOF ) {
 	switch(arg) {
 		case 'd':
 			logsink = 0;
@@ -1979,6 +1979,8 @@ main (int argc, char *argv[])
 		case 'k':
 			uxclnt(optarg);
 			exit(0);
+		case 'r':
+			exit(uxclnt_send_reconfigure());
 		default:
 			;
 		}

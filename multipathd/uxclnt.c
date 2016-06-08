@@ -131,3 +131,42 @@ int uxclnt(char * inbuf)
 
 	return 0;
 }
+
+
+
+/*
+ * force reconfigure  
+ */
+int uxclnt_send_reconfigure(void)
+{
+	int rtn = 0x01;
+	int fd;
+
+	char *line;
+	char *reply;
+
+	fd = ux_socket_connect(DEFAULT_SOCKET);
+	if (fd == -1)
+		goto exit;
+	line ="reconfigure";
+
+	size_t len;
+	size_t llen = strlen(line);
+
+	cli_init();
+
+	if (!send_packet(fd, line, llen + 1))
+	{
+		if (!recv_packet(fd, &reply, &len)) 
+		{
+			print_reply(reply);
+			rtn = strcmp(reply,"ok");
+		}
+	}
+	if (line && *line)
+		add_history(line);
+
+	FREE(reply);
+exit:	
+	return rtn;
+}
