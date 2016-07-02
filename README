@@ -9,6 +9,37 @@ export LD_LIBRARY_PATH=./libmpathpersist:./libmultipath
 modprobe dm-multipath
 multipathd
 
+/etc/multipath.conf
+==================
+
+defaults {
+  user_friendly_names     yes
+  path_grouping_policy    failover
+  polling_interval        3
+  path_selector           "round-robin 0"
+  failback                immediate
+  features                "0"
+  no_path_retry           1
+}
+
+multipaths {
+  multipath {
+    wwid    360000000000000000000000000000001
+    alias   pair0
+    # this alias is to generated on /dev/mapper/pair0,
+    #when you login the SCSI target. Instead of “/dev/sd*”,
+    #you can access it by “/dev/mapper/pair0”
+  }
+  multipath {
+    wwid    360000000000000000000000000000002
+    alias   pair1
+  }
+  multipath {
+    wwid    360000000000000000000000000000003
+    alias   pair2
+  }
+}
+
 multipath -r
 
 
