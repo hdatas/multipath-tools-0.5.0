@@ -25,6 +25,7 @@ install:
 	$(INSTALL_PROGRAM) -m 644 $(EXEC).8.gz $(DESTDIR)$(mandir)
 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(man5dir)
 	$(INSTALL_PROGRAM) -m 644 $(EXEC).conf.5.gz $(DESTDIR)$(man5dir)
+	$(INSTALL_PROGRAM) -m 755 make-multipath.sh $(DESTDIR)$(bindir)
 
 uninstall:
 	rm $(DESTDIR)$(bindir)/$(EXEC)
