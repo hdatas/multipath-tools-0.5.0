@@ -14,7 +14,7 @@ ifdef SYSTEMD
 	LDFLAGS += -lsystemd-daemon
 endif
 LDFLAGS += -ludev -ldl \
-	-L$(multipathdir) -lmultipath -L$(mpathpersistdir) -lmpathpersist
+	-L$(multipathdir) -lmultipath -L$(mpathpersistdir) -lmpathpersist -Wl,-rpath $(syslibdir)
 
 #
 # debuging stuff

@@ -14,8 +14,8 @@ ifeq ($(TOPDIR),)
 endif
 
 ifndef LIB
-	ifeq ($(shell test -d /lib64 && echo 1),1)
-		LIB=lib64
+	ifeq ($(shell test -d /usr/local/lib && echo 1),1)
+		LIB=usr/local/lib
 	else
 		LIB=lib
 	endif
@@ -28,7 +28,7 @@ ifndef SYSTEMD
 endif
 
 prefix      = 
-exec_prefix = $(prefix)
+exec_prefix = $(prefix)/usr/local
 bindir      = $(exec_prefix)/sbin
 libudevdir  = ${prefix}/lib/udev
 multipathdir = $(TOPDIR)/libmultipath
