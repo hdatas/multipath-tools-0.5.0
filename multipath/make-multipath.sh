@@ -2,9 +2,9 @@
 
 #This script will scan the system for attached HCD Volumes
 # and output a list of multipath alias statements for the linux
-# /etc/multipath.conf.  This will allow for the volume to be 
+# /etc/multipath.conf.  This will allow for the volume to be
 # referenced by the volume name in place of the normal mpathX
-# 
+#
 # To use the script, just run it.  If HCD volumes are present
 # it will output the confiugration data to standard out
 # Just copy and paste that output in to /etc/multipath.conf
@@ -12,6 +12,9 @@
 # is not present or if there are other multipath statements
 
 # Start by checking to see if we have any HCD volumes connected
+modprobe dm-multipath
+multipathd
+
 ls -l /dev/disk/by-path | grep hcd >/dev/null
 
 if [ $? -eq 0 ]
@@ -23,14 +26,14 @@ echo "defaults {
     user_friendly_names     yes
     path_grouping_policy    failover
     polling_interval        3
-    path_selector           "round-robin 0"
+    path_selector           \"round-robin 0\"
     failback                immediate
-    features                "1 queue_if_no_path"
+    features                \"1 queue_if_no_path\"
     no_path_retry           1
-    }"
+}" > /etc/multipath.conf
 
 # Output the first line of the config
-echo "multipaths {"
+echo "multipaths {" >> /etc/multipath.conf
 
 # For each device found we determine the name and the mpathid
 for i in $DEV_LIST
@@ -57,17 +60,17 @@ for i in $DEV_LIST
   MULTIPATH=$(printf "multipath {\n \t\twwid \t\t%s \n \t\talias\t\t %s\n \t}" ${SUBSTRING} $NIMBLEVOL)
   MATCH='multipaths {'
 
-  echo "$MULTIPATH"
+  echo "$MULTIPATH" >> /etc/multipath.conf
 
   done
 
   # End the configuration section
-  echo "}"
-else 
+  echo "}" >> /etc/multipath.conf
+else
 
   # If no HCD devices found, exit with message
   echo "No HCD Devices Found, have you met leeloo?"
   exit 1
 fi
-
+multipath -r
 exit 0
