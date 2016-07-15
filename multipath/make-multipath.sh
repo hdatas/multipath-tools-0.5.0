@@ -12,14 +12,14 @@
 # is not present or if there are other multipath statements
 
 # Start by checking to see if we have any HCD volumes connected
-modprobe dm-multipath
-multipathd
+#modprobe dm-multipath
+#multipathd
 
 ls -l /dev/disk/by-path | grep hcd >/dev/null
 
 if [ $? -eq 0 ]
 then
-
+sleep 1
 #Build list of HCD devices
 DEV_LIST=$(ls -l /dev/disk/by-path | grep hcd | awk '{print $NF'} | sed 's/..\/..\///')
 echo "defaults {
@@ -66,11 +66,12 @@ for i in $DEV_LIST
 
   # End the configuration section
   echo "}" >> /etc/multipath.conf
+  multipath -r
 else
 
   # If no HCD devices found, exit with message
   echo "No HCD Devices Found, have you met leeloo?"
   exit 1
 fi
-multipath -r
+#multipath -r
 exit 0
