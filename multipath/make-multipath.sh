@@ -27,20 +27,24 @@ echo "defaults {
     path_grouping_policy    failover
     polling_interval        3
     path_selector           \"round-robin 0\"
-    failback                immediate
+#    failback                immediate
     features                \"1 queue_if_no_path\"
-    no_path_retry           1
+#    no_path_retry           1
 }" > /etc/multipath.conf
 
 # Output the first line of the config
 echo "multipaths {" >> /etc/multipath.conf
-
+echo $DEV_LIST
 # For each device found we determine the name and the mpathid
 for i in $DEV_LIST
   do
   SUBSTRING=$(ls -l /dev/disk/by-id | grep scsi | grep $i  | awk -F- '{print $2}')
-
-#  echo $SUBSTRING
+  if [ "$SUBSTRING" == "" ]
+  then
+    continue
+  else
+    echo $SUBSTRING
+  fi
   # This uses pattern matching to find the name of the volume
 #OFFSET=$(echo $SUBSTRING | awk --re-interval 'match($0, /\-[v][a-z0-9]{16}/) { print RSTART-1 }')
 #OFFSET=$(echo $SUBSTRING | awk 'match($0, /\-[v][a-z0-9]{16}/) { print RSTART-1 }')
