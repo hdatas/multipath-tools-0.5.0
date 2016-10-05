@@ -11,7 +11,8 @@ ifdef SYSTEMD
 endif
 LDFLAGS += -lpthread -ldevmapper -lreadline
 ifdef SYSTEMD
-	LDFLAGS += -lsystemd-daemon
+	LDFLAGS += -lsystemd
+	#LDFLAGS += -lsystemd-daemon
 endif
 LDFLAGS += -ludev -ldl \
 	-L$(multipathdir) -lmultipath -L$(mpathpersistdir) -lmpathpersist -Wl,-rpath $(syslibdir)
