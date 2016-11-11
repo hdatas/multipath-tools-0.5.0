@@ -9,9 +9,9 @@ Conflicts=shutdown.target
 Type=notify
 NotifyAccess=main
 LimitCORE=infinity
-ExecStartPre=/sbin/modprobe dm-multipath
-ExecStart=/sbin/multipathd -d -s
-ExecReload=/sbin/multipathd reconfigure
+ExecStartPre=/usr/local/bin/modprobe dm-multipath
+ExecStart=/usr/local/bin/multipathd -d -s
+ExecReload=/usr/local/bin/multipathd reconfigure
 
 [Install]
 WantedBy=sysinit.target
