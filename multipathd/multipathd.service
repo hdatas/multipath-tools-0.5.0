@@ -9,7 +9,7 @@ Conflicts=shutdown.target
 Type=notify
 NotifyAccess=main
 LimitCORE=infinity
-ExecStartPre=/usr/local/bin/modprobe dm-multipath
+ExecStartPre=/sbin/modprobe dm-multipath
 ExecStart=/usr/local/bin/multipathd -d -s
 ExecReload=/usr/local/bin/multipathd reconfigure
 
