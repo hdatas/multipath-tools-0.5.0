@@ -42,4 +42,22 @@ multipaths {
 
 multipath -r
 
+or 
+
+multipathd -d
+
+
+// Set up serverice
+
+1. sudo vi /usr/lib/systemd/system/multipathd.service
+
+#change /bin to /sbin
+
+change "ExecStart=/usr/local/bin/multipathd -d -s"  to "ExecStart=/usr/local/sbin/multipathd -d -s"
+change "ExecReload=/usr/local/bin/multipathd reconfigure" to "ExecReload=/usr/local/sbin/multipathd reconfigure"
+
+2. sudo systemctl start multipathd
+
+3. sudo service multipathd restart
+
 
