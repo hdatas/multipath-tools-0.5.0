@@ -1,8 +1,18 @@
+# Config multipathd system service on Ubuntu
+Newer Ubuntu system uses systemd to config/manage services.  If `systemctl` is not present,
+run `apt-get install systemd` first to get systemd running.
+
+After "make install", edit file `/usr/lib/systemd/system/multipath.service`.
+Edit "ExecStart" and "ExecReload" to point to the right path where multipathd is installed,
+usually this is "/usr/local/sbin".
+
+Then, run `systemctl unmask multipathd`, `systemctl enable multipathd`.
+
+# Install
 Pre-requisite packages to compile
 
 sudo apt-get install libdevmapper-dev
 sudo apt-get install libreadline-dev
-
 
 export LD_LIBRARY_PATH=./libmpathpersist:./libmultipath
 
