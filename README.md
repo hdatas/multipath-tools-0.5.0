@@ -11,6 +11,7 @@ Then, run `systemctl unmask multipathd`, `systemctl enable multipathd`.
 # Install
 Pre-requisite packages to compile
 
+```
 sudo apt-get install libdevmapper-dev
 sudo apt-get install libreadline-dev
 
@@ -19,9 +20,12 @@ export LD_LIBRARY_PATH=./libmpathpersist:./libmultipath
 modprobe dm-multipath
 multipathd
 
-/etc/multipath.conf
-==================
+```
 
+# Example /etc/multipath.conf
+
+
+```
 defaults {
   user_friendly_names     yes
   path_grouping_policy    failover
@@ -49,6 +53,7 @@ multipaths {
     alias   pair2
   }
 }
+```
 
 multipath -r
 
@@ -57,14 +62,15 @@ or
 multipathd -d
 
 
-// Set up serverice
+## Set up serverice
 
 1. sudo vi /usr/lib/systemd/system/multipathd.service
 
-#change /bin to /sbin
-
+```
+change /bin to /sbin
 change "ExecStart=/usr/local/bin/multipathd -d -s"  to "ExecStart=/usr/local/sbin/multipathd -d -s"
 change "ExecReload=/usr/local/bin/multipathd reconfigure" to "ExecReload=/usr/local/sbin/multipathd reconfigure"
+```
 
 2. sudo systemctl start multipathd
 
