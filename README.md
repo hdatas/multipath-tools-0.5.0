@@ -2,7 +2,7 @@
 Newer Ubuntu system uses systemd to config/manage services.  If `systemctl` is not present,
 run `apt-get install systemd` first to get systemd running.
 
-After "make install", edit file `/usr/lib/systemd/system/multipath.service`.
+After "make install", edit file `/usr/lib/systemd/system/multipathd.service`.
 Edit "ExecStart" and "ExecReload" to point to the right path where multipathd is installed,
 usually this is "/usr/local/sbin".
 
