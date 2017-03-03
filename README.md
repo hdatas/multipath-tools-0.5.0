@@ -68,12 +68,15 @@ multipathd -d
 
 ```
 change /bin to /sbin
-change "ExecStart=/usr/local/bin/multipathd -d -s"  to "ExecStart=/usr/local/sbin/multipathd -d -s"
-change "ExecReload=/usr/local/bin/multipathd reconfigure" to "ExecReload=/usr/local/sbin/multipathd reconfigure"
+change "ExecStart=/usr/local/bin/multipathd -d -s"
+to "ExecStart=/usr/local/sbin/multipathd -d -s"
+change "ExecReload=/usr/local/bin/multipathd reconfigure"
+to "ExecReload=/usr/local/sbin/multipathd reconfigure"
 ```
 
-2. sudo systemctl start multipathd
+2. sudo systemctl daemon-reload
 
-3. sudo service multipathd restart
+3. sudo systemctl restart multipathd
+Or, sudo service multipathd restart
 
 
